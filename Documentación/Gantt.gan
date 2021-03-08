@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2021-08-01" view-index="0" gantt-divider-location="300" resource-divider-location="300" version="3.0.3001" locale="es_ES">
+    <description/>
+    <view zooming-state="default:8" id="gantt-chart">
+        <field id="tpd3" name="Nombre" width="133" order="0"/>
+        <field id="tpd4" name="Fecha de inicio" width="85" order="1"/>
+        <field id="tpd5" name="Fecha de fin" width="63" order="2"/>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nombre" width="210" order="0"/>
+        <field id="1" name="Función" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Gestión" color="#8cb6ce" meeting="false" start="2021-02-18" duration="363" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+            <task id="11" name="Seguimiento" color="#8cb6ce" meeting="false" start="2021-02-18" duration="363" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="12" name="Administración de GitHub" color="#8cb6ce" meeting="false" start="2021-02-18" duration="363" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="13" name="Reuniones" color="#8cb6ce" meeting="false" start="2021-02-18" duration="363" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="2" name="Aprendizaje y documentación" meeting="false" start="2021-02-18" duration="341" complete="0" expand="true">
+            <task id="20" name="Aprendizaje de programación Android Studio" color="#8cb6ce" meeting="false" start="2021-02-18" duration="341" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="21" name="Aprendizaje de funcionamiento eléctrico del corazón" color="#8cb6ce" meeting="false" start="2021-02-18" duration="341" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            <task id="22" name="Estado del arte del análisis por computadora de electrocardiogramas" color="#8cb6ce" meeting="false" start="2021-02-18" duration="341" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+        </task>
+        <task id="176" name="Captura de requisitos" color="#000000" meeting="false" start="2021-02-18" duration="12" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+            <depend id="338" type="2" difference="0" hardness="Strong"/>
+            <task id="508" name="Prototipo 1" color="#8cb6ce" meeting="false" start="2021-02-18" duration="4" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                <depend id="511" type="2" difference="0" hardness="Strong"/>
+                <task id="180" name="Definir funcionalidades" color="#8cb6ce" meeting="false" start="2021-02-18" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="182" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="182" name="Definir prototipos" color="#8cb6ce" meeting="false" start="2021-02-23" duration="1" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+            </task>
+            <task id="511" name="Prototipo 2" meeting="false" start="2021-02-24" duration="4" complete="0" expand="true">
+                <depend id="512" type="2" difference="0" hardness="Strong"/>
+                <task id="514" name="Definir funcionalidades" color="#8cb6ce" meeting="false" start="2021-02-24" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="515" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="515" name="Definir prototipos" color="#8cb6ce" meeting="false" start="2021-03-01" duration="1" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            </task>
+            <task id="512" name="Prototipo 3" color="#8cb6ce" meeting="false" start="2021-03-02" duration="4" complete="0" thirdDate="2020-12-01" thirdDate-constraint="0" expand="true">
+                <task id="516" name="Definir funcionalidades" color="#8cb6ce" meeting="false" start="2021-03-02" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="517" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="517" name="Definir prototipos" color="#8cb6ce" meeting="false" start="2021-03-05" duration="1" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true"/>
+            </task>
+        </task>
+        <task id="172" name="Prototipo 1" color="#8cb6ce" meeting="false" start="2021-03-08" duration="130" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+            <depend id="173" type="2" difference="0" hardness="Strong"/>
+            <task id="338" name="Análisis y diseño" color="#000000" meeting="false" start="2021-03-08" duration="8" complete="0" thirdDate="2021-02-24" thirdDate-constraint="0" expand="true">
+                <depend id="440" type="2" difference="0" hardness="Strong"/>
+                <task id="342" name="Diseño de la base de datos" color="#8cb6ce" meeting="false" start="2021-03-08" duration="5" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="344" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="344" name="Diagramas" color="#8cb6ce" meeting="false" start="2021-03-15" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+            </task>
+            <task id="440" name="Implementación" color="#8cb6ce" meeting="false" start="2021-03-18" duration="110" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                <depend id="485" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="485" name="Pruebas" color="#8cb6ce" meeting="false" start="2021-08-19" duration="12" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+        </task>
+        <task id="173" name="Prototipo 2" color="#8cb6ce" meeting="false" start="2021-09-06" duration="87" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+            <depend id="174" type="2" difference="0" hardness="Strong"/>
+            <task id="396" name="Análisis y diseño" color="#000000" meeting="false" start="2021-09-06" duration="8" complete="0" thirdDate="2021-02-24" thirdDate-constraint="0" expand="true">
+                <depend id="446" type="2" difference="0" hardness="Strong"/>
+                <task id="401" name="Diseño de interfaces" color="#8cb6ce" meeting="false" start="2021-09-06" duration="5" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="402" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="402" name="Diagramas" color="#8cb6ce" meeting="false" start="2021-09-13" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+            </task>
+            <task id="446" name="Implementación" color="#8cb6ce" meeting="false" start="2021-09-16" duration="70" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                <depend id="492" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="492" name="Pruebas" color="#8cb6ce" meeting="false" start="2021-12-23" duration="9" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true"/>
+        </task>
+        <task id="174" name="Prototipo 3" color="#8cb6ce" meeting="false" start="2022-01-05" duration="112" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+            <task id="318" name="Análisis y diseño" color="#000000" meeting="false" start="2022-01-05" duration="8" complete="0" thirdDate="2021-02-24" thirdDate-constraint="0" expand="true">
+                <task id="326" name="Diseño de interfaces" color="#8cb6ce" meeting="false" start="2022-01-05" duration="5" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                    <depend id="327" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="327" name="Diagramas" color="#8cb6ce" meeting="false" start="2022-01-12" duration="3" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+                    <depend id="450" type="2" difference="0" hardness="Strong"/>
+                </task>
+            </task>
+            <task id="450" name="Implementación" color="#8cb6ce" meeting="false" start="2022-01-17" duration="95" complete="0" thirdDate="2021-02-18" thirdDate-constraint="1" expand="true">
+                <depend id="506" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="506" name="Pruebas" color="#8cb6ce" meeting="false" start="2022-05-30" duration="9" complete="0" thirdDate="2022-04-19" thirdDate-constraint="0" expand="true"/>
+        </task>
+        <task id="7" name="Documentación" meeting="false" start="2022-06-06" duration="26" complete="0" expand="true">
+            <task id="138" name="Documentación" color="#8cb6ce" meeting="false" start="2022-06-06" duration="15" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+                <depend id="139" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="139" name="Memoria del TFG" color="#8cb6ce" meeting="false" start="2022-06-27" duration="10" complete="0" thirdDate="2021-02-18" thirdDate-constraint="0" expand="true">
+                <depend id="140" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="140" name="Presentación" meeting="false" start="2022-07-11" duration="1" complete="0" expand="true"/>
+        </task>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles roleset-name="SoftwareDevelopment"/>
+</project>
