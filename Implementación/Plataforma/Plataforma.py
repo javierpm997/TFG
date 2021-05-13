@@ -1,94 +1,56 @@
-import mysql.connector
-import Especialista
-import Paciente
-import Usuario
+from GestorSQL import GestorSQL
 
-HOST= 'localhost'
-USUARIO='root'
-PASSWORD = "cardionline"
-NOMBRE_DB= 'cardionline_pruebas'
+class Plataforma(object):
 
+    def __init__(self):
+        pass
+    def esUsuarioEspecialista(self, pIdUsuario, pContrasena):
+        gestor = GestorSQL();
+        resultadoSQL= gestor.execSQL('SELECT * from Usuario where idUsuario = ' + str(pIdUsuario) + ' and contraseña =\'' + str(pContrasena)+ '\';');
+        if len(resultadoSQL)==0:
+            return 0;
+        resultadoSQL2 = gestor.execSQL('SELECT * from Especialista where idEspecialista = ' + str(pIdUsuario)+ ';')
+        if len(resultadoSQL2)==0:
+            return 0;
 
-def conexionConPlataforma ():
-    # Devuelve una conexión con la plataforma
-    #
-    # SALIDA
-    # conexion
-    # codigo = 0  OK
-    # codigo = 99 Error en la BD
-    # codigo = 98 Error desconocido
+        if len(resultadoSQL) == 1 and len(resultadoSQL2)==1:
+            return 1
 
-    codigo = 0
-    conexion = mysql.connector.connect(user=USUARIO, database=NOMBRE_DB, host=HOST, password=PASSWORD)
-    return conexion, codigo
-
-def conexionConPlataforma (consulta):
-    # Dada una consulta, devuelve el resultado de una consulta SQL
-    #
-    # SALIDA
-    # datos Resultado de una consulta SQL
-    # codigo = 0  OK
-    # codigo = 99 Error en la BD
-    # codigo = 98 Error desconocido
-
-    codigo = 0
-    conexion = mysql.connector.connect(user=USUARIO, database=NOMBRE_DB, host=HOST, password=PASSWORD)
-    datos, codigo = execSQL(consulta, conexion)
-    return datos, codigo
-
-
-def execSQL(consulta, conexion):
-    # Dada una consulta, devuelve el resultado de una consulta SQL
-    #
-    # SALIDA
-    # datos Resultado de una consulta SQL
-    # codigo = 0  OK
-    # codigo = 99 Error en la BD
-    # codigo = 98 Error desconocido
-    codigo = 0
-    cursor = conexion.cursor()
-    cursor.execute(consulta)
-
-    if consulta.upper().startswith('SELECT'):
-        datos = cursor.fetchall()
-    else:
-        conexion.commit()
-        datos= None
-
-    conexion.close()
-    cursor.close()
-
-    return datos, codigo
-
-def identificacionUsuario(pIdUsuario, pPassword):
-    # Dado un id de Usuario y un password, busca esa dupla en la BD.
-    # Devuelve un código, tal como se detalla a continuación
-    # SALIDA
-    # codigo = -1 Identificación incorrecta, contrasena y/o id incorrectos
-    # codigo = 0 Usuario correctamente identificado sin un tipo asignado. No debería existir
-    # codigo = 1 Usuario correctamente identificado tipo Especialista
-    # codigo = 2 Usuario correctamente identificado tipo Paciente
-    # codigo = 3 Uduario correctamente identificado tipo Paciente y Especialista (¡NO DEBERÍA OCURRIR ESTO!)
-    # codigo = 99 Error en la conexión con la Base de Datos
-    # codigo = 98 Error desconocido en el programa
-
-    codigo = -1
-    esPaciente = -1
-    esEspecialista = -1
-
-    esUsuario = Usuario.esUsuario(pIdUsuario, pPassword)
-    if esUsuario == 0:  # Usuario con esa contrasena no existe
         return -1
 
-    esPaciente = Paciente.esPaciente(pIdUsuario)
-    esEspecialista = Especialista.esEspecialista(pIdUsuario)
-    if esPaciente == 0 and esEspecialista == 0:
-        return 0
-    if esPaciente == 1 and esEspecialista == 0:
-        return 1
-    if esPaciente == 0 and esEspecialista == 1:
-        return 2
-    if esPaciente == 1 and esEspecialista == 1:
-        return 3
+    def esUsuarioPaciente(self, pIdUsuario, pContrasena):
+        gestor = GestorSQL();
+        resultadoSQL = gestor.execSQL(
+            'SELECT * from Usuario where idUsuario = ' + str(pIdUsuario) + ' and contraseña =\'' + str(
+                pContrasena) + '\';');
+        if len(resultadoSQL) == 0:
+            return 0;
+        resultadoSQL2 = gestor.execSQL('SELECT * from Paciente where idPaciente= ' + str(pIdUsuario) + ';')
+        if len(resultadoSQL2) == 0:
+            return 0;
 
-    return -98
+        if len(resultadoSQL) == 1 and len(resultadoSQL2) == 1:
+            return 1
+
+        return -1
+
+    def anadirUsuarioEspecialista(self, pNombre, pApellidos, pEmail, pContrasena):
+        gestor = GestorSQL();
+        resultadoSQL = gestor.execSQL('INSERT into Usuario (nombre, apellido, email, contraseña) VALUES (\'' + str(pNombre) + '\' , \'' + str(pApellidos) + '\' , \'' + str(pEmail) + '\' , \'' + str(pContrasena) + '\');')
+
+        resultadoSQL2 = gestor.execSQL('SELECT idUsuario from Usuario where email= \'' + str(pEmail) + '\';')
+
+        resultadoSQL3 = gestor.execSQL(
+            'INSERT into Especialista (idEspecialista) VALUES (' + str(resultadoSQL2[0][0]) +');')
+
+    def anadirUsuarioPaciente(self, pNombre, pApellidos, pEmail, pContrasena, pEspecialista):
+        gestor = GestorSQL();
+        resultadoSQL = gestor.execSQL('INSERT into Usuario (nombre, apellido, email, contraseña) VALUES (\'' + str(pNombre) + '\' , \'' + str(pApellidos) + '\' , \'' + str(pEmail) + '\' , \'' + str(pContrasena) + '\');')
+
+        resultadoSQL2 = gestor.execSQL('SELECT idUsuario from Usuario where email= \'' + str(pEmail) + '\';')
+
+        resultadoSQL3 = gestor.execSQL(
+            'INSERT into Paciente (idPaciente, especialista) VALUES (' + '\'' +str(resultadoSQL2[0][0]) + '\' , \'' + str(pEspecialista) +'\');')
+
+
+

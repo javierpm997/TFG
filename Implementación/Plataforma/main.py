@@ -3,10 +3,11 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
-import Plataforma;
+from Plataforma import Plataforma;
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
-    a = Plataforma.identificacionUsuario(1,'key1')
+    plataforma = Plataforma()
+    a = plataforma.anadirUsuarioPaciente(pContrasena='key1',pEmail='prueba2', pNombre='Prueba', pApellidos='Pruebomez', pEspecialista='1')
     print(a)
 
 
