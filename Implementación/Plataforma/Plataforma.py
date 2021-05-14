@@ -3,33 +3,29 @@ from GestorSQL import GestorSQL
 class Plataforma(object):
 
     def __init__(self):
-        pass
+        self.GESTOR = GestorSQL()
     def esUsuarioEspecialista(self, pIdUsuario, pContrasena):
-        gestor = GestorSQL();
-        resultadoSQL= gestor.execSQL('SELECT * from Usuario where idUsuario = ' + str(pIdUsuario) + ' and contraseña =\'' + str(pContrasena)+ '\';');
-        if len(resultadoSQL)==0:
-            return 0;
-        resultadoSQL2 = gestor.execSQL('SELECT * from Especialista where idEspecialista = ' + str(pIdUsuario)+ ';')
-        if len(resultadoSQL2)==0:
-            return 0;
+        esUsuario = self.__esUsuarioCorrecto(pIdUsuario,pContrasena)
+        if esUsuario==0:
+            return 0
+        esEspecialista = self.__esIdDeEspecialista(pIdUsuario)
+        if esEspecialista==0:
+            return 0
 
-        if len(resultadoSQL) == 1 and len(resultadoSQL2)==1:
+        if esUsuario == 1 and esEspecialista==1:
             return 1
 
         return -1
 
     def esUsuarioPaciente(self, pIdUsuario, pContrasena):
-        gestor = GestorSQL();
-        resultadoSQL = gestor.execSQL(
-            'SELECT * from Usuario where idUsuario = ' + str(pIdUsuario) + ' and contraseña =\'' + str(
-                pContrasena) + '\';');
-        if len(resultadoSQL) == 0:
-            return 0;
-        resultadoSQL2 = gestor.execSQL('SELECT * from Paciente where idPaciente= ' + str(pIdUsuario) + ';')
-        if len(resultadoSQL2) == 0:
-            return 0;
+        esUsuario = self.__esUsuarioCorrecto(pIdUsuario,pContrasena)
+        if esUsuario == 0:
+            return 0
+        esPaciente = self.__esIdDePaciente(pIdUsuario)
+        if esPaciente == 0:
+            return 0
 
-        if len(resultadoSQL) == 1 and len(resultadoSQL2) == 1:
+        if esPaciente == 1 and esUsuario == 1:
             return 1
 
         return -1
@@ -54,3 +50,34 @@ class Plataforma(object):
 
 
 
+    def __esIdDeEspecialista(self, pIdEspecialista):
+        gestor = GestorSQL();
+        resultadoSQL = self.GESTOR.execSQL(
+            'SELECT * from Especialista where idEspecialista = ' + str(pIdEspecialista) + ';')
+        if len(resultadoSQL) == 0:
+            return 0;
+
+        if len(resultadoSQL) == 1 :
+            return 1
+
+        return -1
+    def __esIdDePaciente(self, pIdPaciente):
+        gestor = GestorSQL();
+        resultadoSQL = gestor.execSQL('SELECT * from Paciente where idPaciente= ' + str(pIdPaciente) + ';')
+        if len(resultadoSQL) == 0:
+            return 0;
+
+        if len(resultadoSQL) == 1 :
+            return 1
+
+        return -1
+
+    def __esUsuarioCorrecto(self, pIdUsuario, pContraseña):
+        gestor = GestorSQL();
+        resultadoSQL = gestor.execSQL(
+            'SELECT * from Usuario where idUsuario = ' + str(pIdUsuario) + ' and contraseña =\'' + str(
+                pContraseña) + '\';');
+        if len(resultadoSQL) == 0:
+            return 0;
+        else :
+            return 1;
