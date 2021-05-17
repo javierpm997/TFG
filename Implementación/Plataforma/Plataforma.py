@@ -141,29 +141,147 @@ class Plataforma(object):
         return 0
 
     def verConversacion(self,pIdUsuario1, pIdUsuario2):
-        #Dado un ID de remitente y un id de destinatario devuelve los mensajes enviados a ese destinatario por ese remitente
+        #Dados dos IDs, devuelve los mensajes intercambiados entre ellos
         #CODIGOS
         #99: Error en la BD
         # TODO
         try:
-            listaMensajes = self.GESTOR.execSQL('SELECT * FROM Mensaje where remitente = \'' + str(pIdUsuario1) + '\'and destinatario = \''+ str(pIdUsuario2) + '\';')
+            listaMensajes = self.GESTOR.execSQL('SELECT * from Mensaje where remitente = '+ str(pIdUsuario1) + ' or remitente = ' + str(pIdUsuario2) + ' order by fecha;'
+)
         except:
             return 99
         return listaMensajes
 
     def verConversacionesUsuario(self, pIdUsuario):
-        #Dado un ID, ver conversaciones de un usuario
+        #Dado un ID, devuelve el ID de los usuarios con los que mantiene conversaciones un usuario
         #CODIGOS
-        #99: No es ID de especialista
-        #TODO
-        
+        #99: Error en la BD
+
         try:
-            listaConversaciones = self.GESTOR.execSQL('SELECT * FROM Mensaje where remitente = \'' + str(pIdUsuario) + '\'and destinatario = \''+ str(pIdDestinatario) + '\';')
+            resultadoSQL = self.GESTOR.execSQL('select distinct remitente, destinatario from Mensaje where destinatario = '+ str(pIdUsuario) +' or remitente = '+str(pIdUsuario)+' ;')
         except:
             return 99
+        listaConversaciones = []
+        for i in range(len(resultadoSQL)):
+            if resultadoSQL[i][0] != pIdUsuario and resultadoSQL[i][0] not in listaConversaciones:
+                listaConversaciones.append(resultadoSQL[i][0])
+
+            if resultadoSQL[i][1] != pIdUsuario and resultadoSQL[i][1] not in listaConversaciones:
+                listaConversaciones.append(resultadoSQL[i][1])
+
         return listaConversaciones
 
+    def anadirTipoAnalisis (self, pNombreAnalisis, pDescripcion):
+        # Dado un nombre y una descripción, guarda la definición de un tipo de análisis
+        # CODIGOS
+        #
+        # 0: OK
+        # 99: Error en la BD
+        try:
+            self.GESTOR.execSQL('INSERT INTO TipoAnalisis (nombreAnalisis, descripcion) VALUES (\''+ str(pNombreAnalisis)+'\' , \'' + str(pDescripcion) + '\');')
+        except:
+            return 99
+        return 0
 
+    def modificarTipoAnalisis(self, pIdTipoAnalisis, pNombreAnalisis, pDescripcion):
+        # modifica un tipo de análisis
+        # CODIGOS
+        # 0: OK
+        # 99: Error en las llamadas a la BD. Comprobar que análisis existe
+        nombreAnalisisSQL = ''
+        descripcionSQL = ''
+
+        if len(pNombreAnalisis) != 0:
+            nombreAnalisisSQL = ', nombreAnalisis = ' + '\'' + pNombreAnalisis + '\''
+        if len(pDescripcion) != 0:
+            descripcionSQL = ', descripcion = ' + '\'' + pDescripcion + '\''
+
+        try:
+            resultadoSQL = self.GESTOR.execSQL('UPDATE TipoAnalisis SET idTipoAnalisis = \'' + str(
+                pIdTipoAnalisis) + '\'' + nombreAnalisisSQL + descripcionSQL + ' WHERE idTipoAnalisis = \'' + str(
+                pIdTipoAnalisis) + '\';')
+        except:
+            return 99
+
+        return 0
+    def eliminarTipoAnalisis (self, pIdTipoAnalisis):
+        # elimina un tipo de análisis
+        # CODIGOS
+        # 0: OK
+        # 99: Error en las llamadas a la BD. Comprobar que análisis existe
+        try:
+            resultadoSQL = self.GESTOR.execSQL(
+                'DELETE from TipoAnalisis WHERE idTipoAnalisis = ' + str(pIdTipoAnalisis) + ';')
+        except:
+            return 99
+
+        return 0
+
+    def anadirDispositivo (self, pPaciente, pMarca, pModelo, pTipoAnalisis):
+        # Dado un nombre y una descripción, guarda la definición de un tipo de análisis
+        # CODIGOS
+        #
+        # 0: OK
+        # 99: Error en la BD
+        try:
+            resultadoSQL = self.GESTOR.execSQL('INSERT into Dispositivo (paciente, marca, modelo, tipoAnalisis) VALUES (\'' + str(pPaciente) + '\' , \'' + str(pMarca) + '\' , \'' + str(pModelo) + '\' , \'' + str(pTipoAnalisis) + '\');')
+        except:
+            return 99
+        return 0
+
+    def modificarDispositivo(self, pIdDispositivo, pPaciente, pMarca, pModelo, pTipoAnalisis):
+        # modifica un dispositivo
+        # CODIGOS
+        # 0: OK
+        # 99: Error en las llamadas a la BD. Comprobar que usuario existe
+        pacienteSQL = ''
+        marcaSQL = ''
+        modeloSQL = ''
+        tipoAnalisisSQL = ''
+
+        if len(str(pPaciente)) != 0:
+            pacienteSQL = ', paciente = ' + '\'' + str(pPaciente) + '\''
+        if len(str(pMarca)) != 0:
+            marcaSQL = ', marca = ' + '\'' + str(pMarca) + '\''
+        if len(pModelo) != 0:
+            modeloSQL = ', modelo = ' + '\'' + str(pModelo) + '\''
+        if len(pTipoAnalisis) != 0:
+            tipoAnalisisSQL = ', tipoAnalisis = ' + '\'' + str(pTipoAnalisis) + '\''
+        try:
+            resultadoSQL = self.GESTOR.execSQL('UPDATE Dispositivo SET idDispositivo = \'' + str(
+                pIdDispositivo) + '\'' + pacienteSQL + marcaSQL + modeloSQL + tipoAnalisisSQL + ' WHERE idDispositivo = \'' + str(
+                pIdDispositivo) + '\';')
+        except:
+            return 99
+
+        return 0
+
+    def modificarTipoAnalisisDispositivo(self,pIdDispositivo, pIdTipoAnalisis):
+        # Modifica el Análsis que se realiza a los ECG subidos por un Dispositivo
+        # CODIGOS
+        #
+        # 0: OK
+        # 99: Error en la BD
+        try:
+            resultadoSQL = self.GESTOR.execSQL(
+                'UPDATE Dispositivo SET tipoAnalisis = ('+str(pIdTipoAnalisis) +') WHERE idDispositivo = \''+ str(pIdDispositivo) +'\' ;')
+        except:
+            return 99
+        return 0
+
+
+    def eliminarDispositivo (self, pIdDispositivo):
+        # elimina un tipo de análisis
+        # CODIGOS
+        # 0: OK
+        # 99: Error en las llamadas a la BD. Comprobar que análisis existe
+        try:
+            resultadoSQL = self.GESTOR.execSQL(
+                'DELETE from Dispositivo WHERE idDispositivo = ' + str(pIdDispositivo) + ';')
+        except:
+            return 99
+
+        return 0
     def __esIdDeEspecialista(self, pIdEspecialista):
         #Dado un ID devuelve si ese ID corresponde a un especialista
         #CODIGOS

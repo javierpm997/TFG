@@ -202,7 +202,7 @@ DROP TABLE IF EXISTS `TipoAnalisis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TipoAnalisis` (
-  `idTipoAnalisis` int NOT NULL,
+  `idTipoAnalisis` int NOT NULL AUTO_INCREMENT,
   `nombreAnalisis` varchar(50) NOT NULL,
   `descripcion` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idTipoAnalisis`)
