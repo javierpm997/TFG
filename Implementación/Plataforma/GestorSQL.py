@@ -20,8 +20,10 @@ class GestorSQL(object):
         # Dada una consulta, devuelve el resultado de una consulta SQL
         print(pConsulta)
         if self.__CONEXION == None:
-            self.__CONEXION = self.__conexionConPlataforma();
+            self.__CONEXION = self.__conexionConPlataforma()
+
         cursor = self.__CONEXION.cursor()
+
         cursor.execute(pConsulta)
 
         if pConsulta.upper().startswith('SELECT'):

@@ -27,12 +27,9 @@ CREATE TABLE `Dispositivo` (
   `paciente` int NOT NULL,
   `marca` varchar(50) DEFAULT NULL,
   `modelo` varchar(50) DEFAULT NULL,
-  `tipoAnalisis` int DEFAULT NULL,
   PRIMARY KEY (`idDispositivo`),
   KEY `idPaciente` (`paciente`),
-  KEY `tipoAnalisis` (`tipoAnalisis`),
-  CONSTRAINT `Dispositivo_ibfk_1` FOREIGN KEY (`paciente`) REFERENCES `Paciente` (`idPaciente`),
-  CONSTRAINT `Dispositivo_ibfk_2` FOREIGN KEY (`tipoAnalisis`) REFERENCES `TipoAnalisis` (`idTipoAnalisis`)
+  CONSTRAINT `Dispositivo_ibfk_1` FOREIGN KEY (`paciente`) REFERENCES `Paciente` (`idPaciente`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -42,7 +39,7 @@ CREATE TABLE `Dispositivo` (
 
 LOCK TABLES `Dispositivo` WRITE;
 /*!40000 ALTER TABLE `Dispositivo` DISABLE KEYS */;
-INSERT INTO `Dispositivo` VALUES (2,3,'Biocare','IH-12PLUS',NULL),(3,4,'Biocare','IH-12PLUS',NULL),(4,6,'Biocare','IH-12PLUS',NULL),(5,6,'ASPEL','ASPEKT 812',NULL),(6,5,'ASPEL','ASPEKT 812',NULL),(7,7,'ASPEL','ASPEKT 812',NULL);
+INSERT INTO `Dispositivo` VALUES (2,3,'Biocare','IH-12PLUS'),(3,4,'Biocare','IH-12PLUS'),(4,6,'Biocare','IH-12PLUS'),(5,6,'ASPEL','ASPEKT 812'),(6,5,'ASPEL','ASPEKT 812'),(7,7,'ASPEL','ASPEKT 812');
 /*!40000 ALTER TABLE `Dispositivo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,10 +91,10 @@ DROP TABLE IF EXISTS `Especialista`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Especialista` (
-  `idEspecialista` int NOT NULL,
+  `idEspecialista` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idEspecialista`),
   CONSTRAINT `Especialista_ibfk_1` FOREIGN KEY (`idEspecialista`) REFERENCES `Usuario` (`idUsuario`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +151,7 @@ CREATE TABLE `Mensaje` (
   KEY `destinatario` (`destinatario`),
   CONSTRAINT `Mensaje_ibfk_1` FOREIGN KEY (`remitente`) REFERENCES `Usuario` (`idUsuario`),
   CONSTRAINT `Mensaje_ibfk_2` FOREIGN KEY (`destinatario`) REFERENCES `Usuario` (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -163,7 +160,7 @@ CREATE TABLE `Mensaje` (
 
 LOCK TABLES `Mensaje` WRITE;
 /*!40000 ALTER TABLE `Mensaje` DISABLE KEYS */;
-INSERT INTO `Mensaje` VALUES (1,2,6,'2021-05-04 23:57:44','Hola! Pásate por mi consulta a las 7 mañana, por favor'),(2,6,2,'2021-05-04 23:58:13','Puede ser a las 7:30? Gracias!'),(3,2,6,'2021-05-04 23:58:31','Sin problema, nos vemos mañana!'),(4,2,7,'2021-05-04 23:59:15','Hola! Pásate por mi consulta a las 8 mañana, por favor'),(5,7,2,'2021-05-04 23:59:29','Ok!'),(6,2,6,'2021-05-17 00:52:54','Este es un mensaje de prueba');
+INSERT INTO `Mensaje` VALUES (1,2,6,'2021-05-04 23:57:44','Hola! Pásate por mi consulta a las 7 mañana, por favor'),(2,6,2,'2021-05-04 23:58:13','Puede ser a las 7:30? Gracias!'),(3,2,6,'2021-05-04 23:58:31','Sin problema, nos vemos mañana!'),(4,2,7,'2021-05-04 23:59:15','Hola! Pásate por mi consulta a las 8 mañana, por favor'),(5,7,2,'2021-05-04 23:59:29','Ok!');
 /*!40000 ALTER TABLE `Mensaje` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,13 +172,13 @@ DROP TABLE IF EXISTS `Paciente`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `Paciente` (
-  `idPaciente` int NOT NULL,
+  `idPaciente` int NOT NULL AUTO_INCREMENT,
   `especialista` int NOT NULL,
   PRIMARY KEY (`idPaciente`),
   KEY `especialista` (`especialista`),
   CONSTRAINT `Paciente_ibfk_1` FOREIGN KEY (`idPaciente`) REFERENCES `Usuario` (`idUsuario`) ON DELETE CASCADE,
   CONSTRAINT `Paciente_ibfk_2` FOREIGN KEY (`especialista`) REFERENCES `Especialista` (`idEspecialista`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,10 +199,10 @@ DROP TABLE IF EXISTS `TipoAnalisis`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `TipoAnalisis` (
-  `idTipoAnalisis` int NOT NULL,
+  `idAnalisis` int NOT NULL,
   `nombreAnalisis` varchar(50) NOT NULL,
   `descripcion` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`idTipoAnalisis`)
+  PRIMARY KEY (`idAnalisis`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -215,7 +212,6 @@ CREATE TABLE `TipoAnalisis` (
 
 LOCK TABLES `TipoAnalisis` WRITE;
 /*!40000 ALTER TABLE `TipoAnalisis` DISABLE KEYS */;
-INSERT INTO `TipoAnalisis` VALUES (1,'Analisis Aleatorio','Análisis Aleatorio');
 /*!40000 ALTER TABLE `TipoAnalisis` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -229,12 +225,12 @@ DROP TABLE IF EXISTS `Usuario`;
 CREATE TABLE `Usuario` (
   `idUsuario` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(50) NOT NULL,
+  `apellido` varchar(50) NOT NULL,
+  `contraseña` varchar(50) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `contrasena` varchar(50) DEFAULT NULL,
-  `apellidos` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +239,7 @@ CREATE TABLE `Usuario` (
 
 LOCK TABLES `Usuario` WRITE;
 /*!40000 ALTER TABLE `Usuario` DISABLE KEYS */;
-INSERT INTO `Usuario` VALUES (1,'Jaime','jaimetrujillo@gmail.com','key1','Trujillo Costa'),(2,'Jose Luis','joseluiscastillejoprados@gmail.com','key1','Castillejo Prados'),(3,'Santiago','santiagoarjonacallejas@gmail.com','key1','Arjona Callejas'),(4,'Jose Manuel','josemanuelmeliancantero@gmail.com','key1','Melián Cantero'),(5,'Sofía','sofiamaestrovicent@gmail.com','key1','Maestro Vicent'),(6,'Pablo','pabloguardiatejedor@gmail.com','key1','Guardia Tejedor'),(7,'Claudia','claudiadelasherassegui@gmail.com','key1','De las Heras Seguí');
+INSERT INTO `Usuario` VALUES (1,'Jaime','Trujillo Molto','key1','jaimetrujillo@gmail.com'),(2,'Jose Luis','Castillejo Prados','key1','joseluiscastillejoprados@gmail.com'),(3,'Santiago','Arjona Callejas','key1','santiagoarjonacallejas@gmail.com'),(4,'Jose Manuel','Melian Cantero','key1','josemanuelmeliancantero@gmail.com'),(5,'Sofía','Maestro Vicent','key1','sofiamaestrovicent@gmail.com'),(6,'Pablo','Guardia Tejedor','key1','pabloguardiatejedor@gmail.com'),(7,'Claudia','De las Heras Seguí','key1','claudiadelasherassegui@gmail.com');
 /*!40000 ALTER TABLE `Usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -256,4 +252,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-17  2:03:04
+-- Dump completed on 2021-05-13  2:27:02
