@@ -13,7 +13,7 @@ class GestorSQL(object):
     def __conexionConPlataforma(self):
         # Devuelve una conexión con la plataforma
         conexion = mysql.connector.connect(user=self.__USUARIO, database=self.__NOMBRE_DB, host=self.__HOST,
-                                             password=self.__PASSWORD)
+                                             password=self.__PASSWORD, auth_plugin= 'mysql_native_password')
         return conexion
 
     def execSQL(self, pConsulta):
